@@ -1197,6 +1197,14 @@ LINUX_TESTS += \
 	$(NULL)
 endif
 
+if ENABLE_TEST_ASAN
+XFAIL_TESTS = \
+	objects/property-array.vala \
+	dbus/errors.test \
+	dbus/filedescriptor-errors.test \
+	$(NULL)
+endif
+
 EXTRA_DIST = \
 	gtktemplate/tests-extra-environment.sh \
 	linux/tests-extra-environment.sh \
