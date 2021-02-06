@@ -25,6 +25,25 @@ fedora-gcc-x86_64:
       - "doc/internal-apis"
     expire_in: 2 days
 
+ubuntu-clang-asan:
+  stage: build
+  image: ubuntu:devel
+  except:
+    - tags
+  variables:
+    CC: clang
+    DEBIAN_FRONTEND: noninteractive
+  before_script:
+    - apt update
+    - apt install -y automake autoconf-archive libtool bison dbus flex clang git libglib2.0-dev libgraphviz-dev libgirepository1.0-dev lcov xsltproc make valac
+  script:
+    - git fetch --tags
+    - ./autogen.sh --enable-test-asan
+    - make -j4
+    - make -j4 bootstrap
+    - make -j4 check
+  allow_failure: true
+
 ubuntu-clang-x86_64:
   stage: build
   image: ubuntu:devel
