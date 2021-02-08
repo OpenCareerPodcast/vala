@@ -42,6 +42,12 @@ ubuntu-clang-asan:
     - make -j4
     - make -j4 bootstrap
     - make -j4 check
+  artifacts:
+    paths:
+      - "tests/test-suite.log"
+      - "valadoc/tests/test-suite.log"
+    when: on_failure
+    expire_in: 2 days
   allow_failure: true
 
 ubuntu-clang-x86_64:
